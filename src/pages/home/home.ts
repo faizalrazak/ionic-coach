@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import { DetailPage } from '../detail/detail';
+import { HttpProvider } from '../../providers/http/http'
 
 @Component({
   selector: 'page-home',
@@ -7,8 +9,31 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  category : any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public httpprovider:HttpProvider) {
 
   }
+
+  ionViewDidLoad(){
+    this.httpprovider.getCategory().subscribe(
+      data => {
+        console.log(data)
+        this.category = data;
+        console.log(this.category)
+      },
+      err => {
+        console.log(err);
+      },
+      ()=>{
+      console.log('everything is ok!')
+    }
+    );
+  }
+
+  itemTapped(){
+  	this.navCtrl.push(DetailPage)
+  }
+
 
 }
