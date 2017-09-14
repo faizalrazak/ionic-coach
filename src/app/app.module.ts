@@ -10,6 +10,9 @@ import { HttpProvider } from '../providers/http/http';
 import { HttpModule } from '@angular/http';
 import { DetailPage } from '../pages/detail/detail';
 import { SharePage } from '../pages/share/share';
+import { LoginPage } from '../pages/login/login';
+import { AuthProvider } from '../providers/auth/auth';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -17,25 +20,29 @@ import { SharePage } from '../pages/share/share';
     MyApp,
     HomePage,
     DetailPage,
-    SharePage
+    SharePage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     DetailPage,
-    SharePage
+    SharePage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpProvider
+    HttpProvider,
+    AuthProvider
   ]
 })
 export class AppModule {}

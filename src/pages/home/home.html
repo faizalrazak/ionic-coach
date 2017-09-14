@@ -8,9 +8,10 @@
 
 <ion-content padding>
  
- <ion-card *ngFor = "let cate of category" (click)=itemTapped(cate)>
-    <img src="{{cate.picURL}}"/>
-    <div class="card-title">{{cate.name}}</div>
+ <ion-card *ngFor = "let coach of coaches" (click)=itemTapped()>
+    <img src="{{coach.picURL}}"/>
+    <div class="card-title">{{coach.name}}</div>
     <div class="card-subtitle">41 Listings</div>
   </ion-card>
+  
 </ion-content>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { AuthProvider } from '../auth/auth';
 
 /*
   Generated class for the HttpProvider provider.
@@ -11,7 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class HttpProvider {
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public authService:AuthProvider) {
     console.log('Hello HttpProvider Provider');
   }
 
@@ -23,6 +24,23 @@ export class HttpProvider {
   getCoach(){
     return this.http.get("https://mysterious-beach-83937.herokuapp.com/coaches")
     .map(res => res.json())
+  }
+
+  getCoachApi(){
+    return new Promise((resolve, reject) => {
+ 
+      let headers = new Headers();
+      headers.append('Authorization', 'Bearer ' + this.authService.token);
+ 
+      this.http.get('https://mysterious-beach-83937.herokuapp.com/loggedInCoach', {headers: headers})
+        .map(res => res.json())
+        .subscribe(data => {
+          resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+    });
+ 
   }
 
 }
